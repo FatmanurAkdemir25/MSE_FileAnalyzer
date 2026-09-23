@@ -54,7 +54,7 @@ namespace MSE_FileAnalyzer
         {
             using(OpenFileDialog openFileDialog = new OpenFileDialog()) //kullanıcının sadece .txt/.docx görmesini sağlar. using ile diyalog kapanınca kaynak serbest bırakılıyor. kullanıcı iptal derse de null dönüyo
             {
-                openFileDialog.Filter = "Desteklenen Dosyalar (*.txt;*.docx)|*.txt;*.docx";
+                openFileDialog.Filter = "Desteklenen Dosyalar (*.txt;*.docx;*.pdf)|*.txt;*.docx;*.pdf";
                 openFileDialog.Title = "Analiz edilecek dosyayı seçin";
                 if(openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -68,7 +68,8 @@ namespace MSE_FileAnalyzer
             List<IFileReader> availableReaders = new List<IFileReader>
             {
                 new TxtFileReader(),
-                new DocxFileReader()
+                new DocxFileReader(),
+                new PdfFileReader()
             };
             foreach(IFileReader reader in availableReaders)
             {
