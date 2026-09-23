@@ -1,12 +1,14 @@
-﻿using System;
+﻿using MSE_FileAnalyzer.Analysis;
+using MSE_FileAnalyzer.Logging;
+using MSE_FileAnalyzer.Models;
+using MSE_FileAnalyzer.Readers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MSE_FileAnalyzer.Readers;
 using System.Windows.Forms;
-using MSE_FileAnalyzer.Analysis;
-using MSE_FileAnalyzer.Models;
+using MSE_FileAnalyzer.Logging;
 
 namespace MSE_FileAnalyzer
 {
@@ -15,27 +17,35 @@ namespace MSE_FileAnalyzer
         [STAThread]
         static void Main(string[] args)
         {
+            Logger.LogInfo("Uygulama başlatıldı.");
+
             string filePath = SelectFile();
             if (string.IsNullOrEmpty(filePath))
             {
+                Logger.LogInfo("Kullanıcı dosya seçmedi.");
                 Console.WriteLine("Dosya seçilmedi. Program sonlandırılıyor.");
                 return;
             }
+            Logger.LogInfo("Seçilen dosya: " + filePath);
             IFileReader reader = GetReaderFor(filePath);
             if(reader == null)
             {
+                Logger.LogError("Desteklenmeyen dosya türü: " + filePath);
                 Console.WriteLine("Bu dosya türü desteklenmiyor.");
                 return;
             }
             try
             {
                 string content = reader.ReadContent(filePath);
+                Logger.LogInfo("Dosya başarıyla okundu, analiz başlıyor.");
                 WordAnalyzer analyzer = new WordAnalyzer();
                 AnalysisResult result = analyzer.Analyze(content);
+                Logger.LogInfo("Analiz tamamlandı. Toplam farklı kelime: " + result.TotalUniqueWordCount);
                 PrintResult(result);
             }
             catch (Exception ex)
             {
+                Logger.LogError("İşlem sırasında hata: " + ex.Message);
                 Console.WriteLine("İşlem sırasında hata oluştu:" + ex.Message);
             }
             Console.ReadLine();

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Analysis\TurkishStopWords.cs" />
     <Compile Include="Analysis\WordAnalyzer.cs" />
+    <Compile Include="Logging\Logger.cs" />
     <Compile Include="Models\AnalysisResult.cs" />
     <Compile Include="Models\WordFrequency.cs" />
     <Compile Include="Program.cs" />
@@ -67,8 +68,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logging\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

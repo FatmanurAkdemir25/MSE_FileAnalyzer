@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MSE_FileAnalyzer.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,21 +28,25 @@ namespace MSE_FileAnalyzer.Readers
             }
             catch(FileNotFoundException ex) 
             {
+                Logger.LogError("Dosya bulunamadı: " + ex.Message);
                 Console.WriteLine("Hata: Dosya bulunamadı - " + ex.Message);
                 throw;//throw ile hatayı tekrar fırlatıyoruz ki üst katman yani program.cs haberdar olsun ve akışı durdurabilsin
             }
             catch(UnauthorizedAccessException ex)
             {
+                Logger.LogError("Dosya bulunamadı: " + ex.Message);
                 Console.WriteLine("Hata: Dosyaya erişim izniniz yok - " + ex.Message);
                 throw;
             }
             catch(IOException ex)
             {
+                Logger.LogError("Dosya bulunamadı: " + ex.Message);
                 Console.WriteLine("Hata: Dosya okunurken bir G/Ç hatası oluştu -" + ex.Message);
                 throw;
             }
             catch(Exception ex)
             {
+                Logger.LogError("Dosya bulunamadı: " + ex.Message);
                 Console.WriteLine("Beklenmeyen bir hata oluştu - " + ex.Message);
                 throw;
             }

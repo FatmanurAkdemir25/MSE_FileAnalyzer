@@ -1,9 +1,10 @@
-﻿using System;
+﻿using MSE_FileAnalyzer.Logging;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 using Xceed.Words.NET;
 
 namespace MSE_FileAnalyzer.Readers
@@ -30,11 +31,13 @@ namespace MSE_FileAnalyzer.Readers
             }
             catch(FileNotFoundException ex)
             {
+                Logger.LogError("Dosya bulunamadı: " + ex.Message);
                 Console.WriteLine("Hata: Dosya bulunamadı - " + ex.Message);
                 throw;
             }
             catch(Exception ex)
             {
+                Logger.LogError("Dosya bulunamadı: " + ex.Message);
                 Console.WriteLine("Hata: .docx dosyasını okurken bir sorun oluştu" + ex.Message);
                 throw;
             }
